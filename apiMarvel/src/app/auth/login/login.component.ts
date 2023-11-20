@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
   loginFormSubmit(): void {
-    console.log(this.loginForm.value);
+    console.log("hola" + this.loginForm.value);
     // Call Api
   }
 
