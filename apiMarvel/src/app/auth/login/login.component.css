@@ -1,4 +1,9 @@
 
+.cardBlock h5 {
+    color: #e62429;
+    font-size: 0.75rem;
+    font-weight: 900;
+}
 
 .btnBlock {
     -webkit-text-size-adjust: 100%;
@@ -27,5 +32,10 @@
 }
 
 
+.colorfont {
+    color:red;
+}
 
-  
+.colorfont a {
+    color: #9f0013;
+}

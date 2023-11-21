@@ -2,6 +2,8 @@ export const environment = {
     
     production: false,
 
+    BASE_URL: 'http://localhost:3000/api',
+
     API_URL: 'http://gateway.marvel.com/v1/public/comics?',
     TS_KEY: 1,
     API_KEY: '4f9a355e818b2149ba13bcbecd2cc118', //Es la public key

@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
+//import { Router } from '@angular/router';
+
+import { ReactiveFormsModule, FormControl, FormGroup, Validator, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
 
   loginForm!:FormGroup
   
-  constructor() { }
+  constructor( /*private router: Router*/ ) { }
+
+  
 
   //Iniciamos formulario
 
@@ -29,8 +33,10 @@ export class LoginComponent implements OnInit {
   get passwordField(): any {
     return this.loginForm.get('password');
   }
+  
   loginFormSubmit(): void {
-    console.log("hola" + this.loginForm.value);
+    console.log("hola" + this.emailField.value);
+    //this.router.navigateByUrl('/');
     // Call Api
   }
 

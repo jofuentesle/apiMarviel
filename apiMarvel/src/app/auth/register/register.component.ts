@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { Router } from '@angular/router';
+
+/*servicios*/
+import { AuthService } from '../service/auth.service';
+
 import { ValidacionesPropias } from '../customValidators/validaciones-propias';
 
 
@@ -11,10 +16,25 @@ import { ValidacionesPropias } from '../customValidators/validaciones-propias';
 export class RegisterComponent implements OnInit {
 
 
-  registerForm: FormGroup;
+  public registerForm: FormGroup;
+
+  public formSubmitted = false;
+
+  constructor(  private fb: FormBuilder, 
+                private authService: AuthService, 
+                private router:Router ) {}
 
 
-  constructor() {}
+
+  ngOnInit(): void { 
+    this.registerForm = new FormGroup({
+      nombre: new FormControl('jordi', [ Validators.required ] ),
+      email: new FormControl('jordi@gmail.com', [ Validators.required, Validators.email] ),
+      password: new FormControl( '111111', [ Validators.required, Validators.minLength(6)] ),
+      password2: new FormControl( '111111', [ Validators.required, Validators.minLength(6)]),
+      terminos: new FormControl( false, Validators.required )
+    })
+  }
 
   /*Verificamos que coincidan las contraseñas
   checkPasswords: ValidatorFn = (
@@ -34,21 +54,14 @@ export class RegisterComponent implements OnInit {
       : null;
   };*/
 
-  ngOnInit(): void { 
-    this.registerForm = new FormGroup({
-      nombre: new FormControl('jordi', [ Validators.required ] ),
-      email: new FormControl('jordi@gmail.com', [ Validators.required, Validators.email] ),
-      password: new FormControl( '123456', [ Validators.required, Validators.minLength(6)] ),
-      password2: new FormControl( '111111', [ Validators.required, Validators.minLength(6)]),
-      terminos: new FormControl( false, Validators.required )
-    })
-
-  }
+ 
 
 
   createUser() {
+    
     console.log(this.registerForm.value);
     console.log(this.mustBeEquals());
+
   }
 
   mustBeEquals() {
