@@ -18,6 +18,13 @@
                   formControlName="email"
                   >
                 <label for="floatingInput">Correo electrónico</label>
+                <div class="mt-3 text-danger">
+                  <div>
+                    <span *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                      Por favor introduce una dirección de correo electrónico
+                    </span>
+                  </div>
+                </div>
               </div>
               <div class="form-floating mb-3">
                 <input 
@@ -29,6 +36,20 @@
                   >
                 <label for="floatingPassword">Contraseña</label>
               </div>
+              <div class="mt-3 text-danger">
+                <div>
+                  <span *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                    Por favor introduce una contraseña
+                  </span>
+                </div>
+              </div>
+              <div class="mt-3 text-danger">
+                <div>
+                  <span *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                    La contraseña debe tener más de 6 carácteres
+                  </span>
+                </div>
+              </div>
               <div class="form-floating mb-3">
                 <input 
                   type="password" 
@@ -39,7 +60,28 @@
                   >
                 <label for="floatingPassword">Repite la contraseña</label>
               </div>
-              <div class=" mb-3">
+              <div class="mt-3 text-danger">
+                <div>
+                  <span *ngIf="registerForm.get('password2')?.invalid && registerForm.get('password2')?.touched">
+                    Por favor introduce una contraseña
+                  </span>
+                </div>
+              </div>
+              <div class="mt-3 text-danger">
+                <div>
+                  <span *ngIf="registerForm.get('password2')?.invalid && registerForm.get('password2')?.touched">
+                    La contraseña debe tener más de 6 carácteres
+                  </span>
+                </div>
+              </div>
+              <div class="mt-3 text-danger">
+                <div>
+                  <span *ngIf="mustBeEquals() && registerForm.get('terminos')?.touched">
+                    Las contraseñas no coinciden
+                  </span>
+                </div>
+              </div>
+              <div class="mb-3">
                 <input 
                   type="checkbox" 
                   class="" 
@@ -47,11 +89,16 @@
                   formControlName="terminos"
                   >
                 <label for="floatingPassword"><a class="ms-2"href="">Aceptas las condiciones de uso</a></label>
+                <div class="mt-3 text-danger">
+                  <span *ngIf="aceptaTerminos()"> Debes aceptar los terminos para continuar</span>
+
+                </div>
               </div>
               <div class="d-grid btnBlock">
                 <button 
                   class="btn btnBlock__Item" 
                   type="submit"
+                  [disabled]="registerForm.invalid && registerForm.get('terminos')?.value==false "
                   >
                   Registrate
                 </button>
@@ -60,7 +107,9 @@
               <div class="d-grid mb-2 btnBlock">
                 <button 
                   class="btn btnBlock__Item" 
-                  type="submit">
+                  type="submit"
+                 
+                  >
                   <i class="fab fa-google me-2"></i>
                    Accede con Google
                 </button>

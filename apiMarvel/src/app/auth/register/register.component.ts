@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 /*servicios*/
 import { AuthService } from '../service/auth.service';
+import { RegisterForm } from '../../interficies/register-form.interface.ts'
 
 import { ValidacionesPropias } from '../customValidators/validaciones-propias';
 
@@ -24,143 +25,47 @@ export class RegisterComponent implements OnInit {
                 private authService: AuthService, 
                 private router:Router ) {}
 
-
-
   ngOnInit(): void { 
     this.registerForm = new FormGroup({
-      nombre: new FormControl('jordi', [ Validators.required ] ),
-      email: new FormControl('jordi@gmail.com', [ Validators.required, Validators.email] ),
-      password: new FormControl( '111111', [ Validators.required, Validators.minLength(6)] ),
-      password2: new FormControl( '111111', [ Validators.required, Validators.minLength(6)]),
-      terminos: new FormControl( false, Validators.required )
+      email: new FormControl(null, [ Validators.required, Validators.pattern(/\S+@\S+\.\S+/)] ),
+      password: new FormControl( null, [ Validators.required, Validators.minLength(6)] ),
+      password2: new FormControl( null, [ Validators.required, Validators.minLength(6)]),
+      terminos: new FormControl( null, Validators.required )
     })
   }
 
-  /*Verificamos que coincidan las contraseñas
-  checkPasswords: ValidatorFn = (
-    control: AbstractControl
-  ): ValidationErrors | null => {
-    const password = control.get("password");
-    const password2= control.get("password2");
-
-    if (password?.value === password2?.value)
-    return null;
-      else
-    return { passwordCoincide: true }
-    /*return password &&
-      password2 &&
-      password.value !== password2.value
-      ? { passwordCoincide: true }
-      : null;
-  };*/
-
  
-
-
+  //Create user
   createUser() {
-    
-    console.log(this.registerForm.value);
-    console.log(this.mustBeEquals());
-
-  }
-
-  mustBeEquals() {
-    const pass1 = this.registerForm.get('password')?.value;
-    const pass2 = this.registerForm.get('password2')?.value;
-
-      if( pass1 === pass2 ) {
-        return true;
-      } else {
-        return false
-      }
-  }
-  /*public formSubmitted = false;
-
-  //Reactive form
-  public registerForm = this.fb.group<any>({
-
-    nombre:['jordi', [ Validators.required, Validators.minLength(3) ] ],
-    email: ['jordi@gmail.com', [ Validators.required, Validators.email] ],
-    password: [ '123456', [ Validators.required, Validators.minLength(6)] ],
-    password2: [ '123457', [ Validators.required, Validators.minLength(6)] ],
-    terminos: [ true, Validators.required ]
-
-  });
-  
-
-  
-  constructor( private fb: FormBuilder) {}
-
-
-  //metodo para crear usuario
-  createUser() {
-    
     this.formSubmitted = true;
-    console.log(this.registerForm.value);
 
     if( this.registerForm.valid ) {
-      console.log(' posteando formulario  ')
+      console.log('Posteando formulario');
     } else {
-      console.log("correcto")
+      console.log("no es correcto")
     }
+    console.log(this.registerForm.value);
+    /*console.log(ValidacionesPropias.mustBeEquals(this.registerForm.get('password')?.value, this.registerForm.get('password2')?.value))*/
+    //this.authService.createUser());  
 
   }
 
-  campoNoValido( campo:string ):boolean {
 
-    if ( this.registerForm.get(campo)?.invalid && this.formSubmitted) {
+  //Validaciones del formulario
+  mustBeEquals() {
+      const pass1 = this.registerForm.get('password')?.value;
+      const pass2 = this.registerForm.get('password2')?.value;
 
-      return true
-
-    } else {
-
-      return false
-      
-    }
-
+      (pass1 == pass2)? false: true;      
   }
 
   aceptaTerminos() {
 
-    return  !this.registerForm.get('terminos')!.value && this.formSubmitted
+    return !this.registerForm.get('terminos')?.value && this.registerForm.get('terminos')?.touched;
 
   }
-
-  passwordNoValido():boolean {
-
-    const pass1 = this.registerForm.get('password')?.value;
-    const pass2 = this.registerForm.get('password2')?.value;
-    console.log(pass1);
-    console.log(pass2);
-
-    if ((pass1 !== pass2) && this.formSubmitted) {
-        
-      return true;
-
-    } else {
-
-        return false;
-    
-      }
-  }
-
-
-  passwordsIguales( pass1Name:string, pass2Name: string) {
-
-    return (FormGroup: FormGroup) => {
-
-      const pass1Control = FormGroup.get(pass1Name);
-      const pass2Control = FormGroup.get(pass2Name);
-
-      if ( pass1Control === pass2Control ) {
-
-        pass2Control?.setErrors(null)
-
-      } else{
-
-        pass2Control?.setErrors({noEsIgual: true})
-      }
-    }
-  }
-*/
 }
+
+
+
+

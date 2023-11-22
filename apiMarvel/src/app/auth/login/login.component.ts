@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-//import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { ReactiveFormsModule, FormControl, FormGroup, Validator, Validators } from '@angular/forms';
 
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginForm!:FormGroup
   
-  constructor( /*private router: Router*/ ) { }
+  constructor( private router: Router ) { }
 
   
 
