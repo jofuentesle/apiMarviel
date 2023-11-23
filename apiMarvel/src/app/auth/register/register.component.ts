@@ -30,16 +30,21 @@ export class RegisterComponent implements OnInit {
       email: new FormControl(null, [ Validators.required, Validators.pattern(/\S+@\S+\.\S+/)] ),
       password: new FormControl( null, [ Validators.required, Validators.minLength(6)] ),
       password2: new FormControl( null, [ Validators.required, Validators.minLength(6)]),
-      terminos: new FormControl( null, Validators.required )
+      terminos: new FormControl( false, Validators.required )
+    }, {
+
+      validators: passwordsIguales('pass', 'pass2');
+
     })
   }
 
  
   //Create user
   createUser() {
-    this.formSubmitted = true;
+   
 
     if( this.registerForm.valid ) {
+      this.formSubmitted = true;
       console.log('Posteando formulario');
     } else {
       console.log("no es correcto")
@@ -56,12 +61,22 @@ export class RegisterComponent implements OnInit {
       const pass1 = this.registerForm.get('password')?.value;
       const pass2 = this.registerForm.get('password2')?.value;
 
-      (pass1 == pass2)? false: true;      
+      return pass1 !== pass2 ? false : true;        
   }
 
   aceptaTerminos() {
 
     return !this.registerForm.get('terminos')?.value && this.registerForm.get('terminos')?.touched;
+  }
+
+  passwordsIguales ( pass1Name:string, pass2Name:string ) {
+
+    return ( formGroup: FormGroup ) => {
+
+      const pass1Control = formGroup.controls.get(pass1Name);
+      const pass2Control = formGroup.controls.get(pass2Name);
+
+    }
 
   }
 }
