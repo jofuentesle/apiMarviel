@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -20,19 +20,20 @@ export class AuthService {
   //definimos usuario
   public usuarioDB!: Usuario;
 
-  constructor(  private http: HttpClient,
+  constructor(  //private http: HttpClient,
                 private router: Router,
                 private ngZone: NgZone ) { }
 
   createUser ( formData: RegisterForm ) {
 
+  console.log("hola");
+  /*
     return this.http.post(`${ base_url }/usuarios`, formData )
             .pipe(
               tap( (resp: any) => {
                 localStorage.setItem('token', resp.token)
               })
             )
-
+*/
   }
-
 }

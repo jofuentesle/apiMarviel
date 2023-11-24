@@ -6,7 +6,7 @@
             <h5 class="card-title text-center mb-5 fw-light fs-5">Regístrate en la aplicación</h5>
             <form 
               autocomplete="off"
-              [formGroup]="registerForm"
+              [formGroup]="regForm"
               (ngSubmit)="createUser()"
               >
               <div class="form-floating mb-3">
@@ -16,8 +16,22 @@
                   id="floatingInput" 
                   placeholder="nombre@ejemplo.com"
                   formControlName="email"
+                  [class.invalid]="
+                    regForm.get('email')?.invalid && 
+                    (regForm.get('email')?.touched || 
+                    regForm.get('email')?.dirty || formSubmitted) "
                   >
                 <label for="floatingInput">Correo electrónico</label>
+                <div class="mt-3 text-danger">
+                  <div>
+                    <span *ngIf="regForm.get('email')?.hasError('required') && regForm.get('email')?.touched">
+                      Por favor introduce una dirección de correo electrónico
+                    </span>  
+                    <span *ngIf="regForm.get('email')?.hasError('pattern') ">
+                      El formato del correo no es correcto
+                    </span>
+                  </div>
+                </div>
               </div>
               <div class="form-floating mb-3">
                 <input 
@@ -26,8 +40,22 @@
                   id="floatingPassword" 
                   placeholder="Contraseña"
                   formControlName="password"
+                  [class.invalid]="
+                    regForm.get('password')?.invalid && 
+                    (regForm.get('password')?.touched || 
+                    regForm.get('password')?.dirty || formSubmitted) "
                   >
                 <label for="floatingPassword">Contraseña</label>
+              </div>
+              <div class="mt-3 text-danger">
+                <div>
+                  <span *ngIf="regForm.get('password')?.hasError('required') && regForm.get('password')?.touched">
+                    Por favor introduce una contraseña
+                  </span>
+                  <span *ngIf="regForm.get('password')?.hasError('minLength')">
+                    La contraseña debe tener más de 6 carácteres
+                  </span>
+                </div>
               </div>
               <div class="form-floating mb-3">
                 <input 
@@ -36,22 +64,61 @@
                   id="floatingPassword2" 
                   placeholder="Repite la contraseña"
                   formControlName="password2"
+                  [class.invalid]="
+                    regForm.get('password2')?.invalid && 
+                    (regForm.get('password2')?.touched || 
+                    regForm.get('password2')?.dirty || formSubmitted) "
+                  >
                   >
                 <label for="floatingPassword">Repite la contraseña</label>
               </div>
-              <div class=" mb-3">
+              <div class="mt-3 text-danger">
+                <div>
+                  <span *ngIf="regForm.get('password2')?.hasError('required') && regForm.get('password2')?.touched">
+                    Por favor introduce una contraseña
+                  </span>
+                  <span *ngIf="regForm.get('password2')?.hasError('minLength')">
+                    Por favor introduce una contraseña
+                  </span>
+                </div>
+              </div>
+              <div class="mt-3 text-danger">
+                <div>
+                  <span *ngIf="regForm.get('password2')?.invalid && regForm.get('password2')?.touched">
+                    La contraseña debe tener más de 6 carácteres
+                  </span>
+                </div>
+              </div>
+              <div class="mt-3 text-danger">
+                <div>
+                  <span *ngIf="">
+                    Las contraseñas no coinciden
+                  </span>
+                </div>
+              </div>
+              <div class="mb-3">
                 <input 
                   type="checkbox" 
                   class="" 
                   id="terms" 
                   formControlName="terminos"
+                  [class.invalid]="
+                    regForm.get('terminos')?.invalid && 
+                    (regForm.get('terminos')?.touched || 
+                    regForm.get('terminos')?.dirty || formSubmitted) "
+                  >
                   >
                 <label for="floatingPassword"><a class="ms-2"href="">Aceptas las condiciones de uso</a></label>
+                <div class="mt-3 text-danger">
+                  <span *ngIf="aceptaTerminos()"> Debes aceptar los terminos para continuar</span>
+
+                </div>
               </div>
               <div class="d-grid btnBlock">
                 <button 
                   class="btn btnBlock__Item" 
                   type="submit"
+                  [disabled]=""
                   >
                   Registrate
                 </button>
@@ -60,7 +127,9 @@
               <div class="d-grid mb-2 btnBlock">
                 <button 
                   class="btn btnBlock__Item" 
-                  type="submit">
+                  type="submit"
+                  [disabled]="regForm.value.invalid"
+                  >
                   <i class="fab fa-google me-2"></i>
                    Accede con Google
                 </button>
