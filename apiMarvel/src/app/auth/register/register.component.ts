@@ -17,70 +17,57 @@ import { ValidacionesPropias } from '../customValidators/validaciones-propias';
 export class RegisterComponent implements OnInit {
 
 
-  public registerForm: FormGroup;
-
+  regForm: FormGroup
   public formSubmitted = false;
 
   constructor(  private fb: FormBuilder, 
                 private authService: AuthService, 
-                private router:Router ) {}
+                private router:Router ) {
+
+                  this.regForm = this.fb.group({
+
+                  })
+
+
+                }
 
   ngOnInit(): void { 
-    this.registerForm = new FormGroup({
+    this.regForm = this.fb.group({
       email: new FormControl(null, [ Validators.required, Validators.pattern(/\S+@\S+\.\S+/)] ),
       password: new FormControl( null, [ Validators.required, Validators.minLength(6)] ),
-      password2: new FormControl( null, [ Validators.required, Validators.minLength(6)]),
-      terminos: new FormControl( false, Validators.required )
-    }, {
-
-      validators: passwordsIguales('pass', 'pass2');
-
+      password2: new FormControl( null, [ Validators.required, Validators.minLength(6) ]),
+      terminos: new FormControl( null, Validators.required )
     })
   }
 
- 
+
+
+  get email() {
+    return this.regForm.controls['email'];
+} 
+
+  get password() {
+    return this.regForm.controls['password'];
+}
+
   //Create user
   createUser() {
-   
-
-    if( this.registerForm.valid ) {
+    /*console.log(this.regForm);
+    if( this.regForm.valid && this.regForm.get('terminos')?.value === true ) {
       this.formSubmitted = true;
       console.log('Posteando formulario');
     } else {
       console.log("no es correcto")
-    }
-    console.log(this.registerForm.value);
-    /*console.log(ValidacionesPropias.mustBeEquals(this.registerForm.get('password')?.value, this.registerForm.get('password2')?.value))*/
-    //this.authService.createUser());  
-
+    }*/
+    console.log('submitted from ' , this.regForm.value, this.regForm.invalid);
+    this.formSubmitted = true;
   }
-
 
   //Validaciones del formulario
-  mustBeEquals() {
-      const pass1 = this.registerForm.get('password')?.value;
-      const pass2 = this.registerForm.get('password2')?.value;
-
-      return pass1 !== pass2 ? false : true;        
-  }
+ 
 
   aceptaTerminos() {
 
-    return !this.registerForm.get('terminos')?.value && this.registerForm.get('terminos')?.touched;
-  }
-
-  passwordsIguales ( pass1Name:string, pass2Name:string ) {
-
-    return ( formGroup: FormGroup ) => {
-
-      const pass1Control = formGroup.controls.get(pass1Name);
-      const pass2Control = formGroup.controls.get(pass2Name);
-
-    }
-
+    return !this.regForm.get('terminos')?.value && this.regForm.get('terminos')?.touched;
   }
 }
-
-
-
-

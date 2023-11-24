@@ -6,7 +6,7 @@
             <h5 class="card-title text-center mb-5 fw-light fs-5">Regístrate en la aplicación</h5>
             <form 
               autocomplete="off"
-              [formGroup]="registerForm"
+              [formGroup]="regForm"
               (ngSubmit)="createUser()"
               >
               <div class="form-floating mb-3">
@@ -16,12 +16,19 @@
                   id="floatingInput" 
                   placeholder="nombre@ejemplo.com"
                   formControlName="email"
+                  [class.invalid]="
+                    regForm.get('email')?.invalid && 
+                    (regForm.get('email')?.touched || 
+                    regForm.get('email')?.dirty || formSubmitted) "
                   >
                 <label for="floatingInput">Correo electrónico</label>
                 <div class="mt-3 text-danger">
                   <div>
-                    <span *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                    <span *ngIf="regForm.get('email')?.hasError('required') && regForm.get('email')?.touched">
                       Por favor introduce una dirección de correo electrónico
+                    </span>  
+                    <span *ngIf="regForm.get('email')?.hasError('pattern') ">
+                      El formato del correo no es correcto
                     </span>
                   </div>
                 </div>
@@ -33,19 +40,19 @@
                   id="floatingPassword" 
                   placeholder="Contraseña"
                   formControlName="password"
+                  [class.invalid]="
+                    regForm.get('password')?.invalid && 
+                    (regForm.get('password')?.touched || 
+                    regForm.get('password')?.dirty || formSubmitted) "
                   >
                 <label for="floatingPassword">Contraseña</label>
               </div>
               <div class="mt-3 text-danger">
                 <div>
-                  <span *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                  <span *ngIf="regForm.get('password')?.hasError('required') && regForm.get('password')?.touched">
                     Por favor introduce una contraseña
                   </span>
-                </div>
-              </div>
-              <div class="mt-3 text-danger">
-                <div>
-                  <span *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                  <span *ngIf="regForm.get('password')?.hasError('minLength')">
                     La contraseña debe tener más de 6 carácteres
                   </span>
                 </div>
@@ -57,26 +64,34 @@
                   id="floatingPassword2" 
                   placeholder="Repite la contraseña"
                   formControlName="password2"
+                  [class.invalid]="
+                    regForm.get('password2')?.invalid && 
+                    (regForm.get('password2')?.touched || 
+                    regForm.get('password2')?.dirty || formSubmitted) "
+                  >
                   >
                 <label for="floatingPassword">Repite la contraseña</label>
               </div>
               <div class="mt-3 text-danger">
                 <div>
-                  <span *ngIf="registerForm.get('password2')?.invalid && registerForm.get('password2')?.touched">
+                  <span *ngIf="regForm.get('password2')?.hasError('required') && regForm.get('password2')?.touched">
+                    Por favor introduce una contraseña
+                  </span>
+                  <span *ngIf="regForm.get('password2')?.hasError('minLength')">
                     Por favor introduce una contraseña
                   </span>
                 </div>
               </div>
               <div class="mt-3 text-danger">
                 <div>
-                  <span *ngIf="registerForm.get('password2')?.invalid && registerForm.get('password2')?.touched">
+                  <span *ngIf="regForm.get('password2')?.invalid && regForm.get('password2')?.touched">
                     La contraseña debe tener más de 6 carácteres
                   </span>
                 </div>
               </div>
               <div class="mt-3 text-danger">
                 <div>
-                  <span *ngIf="mustBeEquals">
+                  <span *ngIf="">
                     Las contraseñas no coinciden
                   </span>
                 </div>
@@ -87,6 +102,11 @@
                   class="" 
                   id="terms" 
                   formControlName="terminos"
+                  [class.invalid]="
+                    regForm.get('terminos')?.invalid && 
+                    (regForm.get('terminos')?.touched || 
+                    regForm.get('terminos')?.dirty || formSubmitted) "
+                  >
                   >
                 <label for="floatingPassword"><a class="ms-2"href="">Aceptas las condiciones de uso</a></label>
                 <div class="mt-3 text-danger">
@@ -98,7 +118,7 @@
                 <button 
                   class="btn btnBlock__Item" 
                   type="submit"
-                  [disabled]="registerForm.invalid"
+                  [disabled]=""
                   >
                   Registrate
                 </button>
@@ -108,7 +128,7 @@
                 <button 
                   class="btn btnBlock__Item" 
                   type="submit"
-                 
+                  [disabled]="regForm.value.invalid"
                   >
                   <i class="fab fa-google me-2"></i>
                    Accede con Google
