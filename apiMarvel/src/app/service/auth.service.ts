@@ -3,9 +3,9 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators'
-import { environment } from '../../../environments/environment';
+import { environment } from '../../environments/environment';
 
-import { RegisterForm } from '../../interficies/register-form.interface.ts';
+import { RegisterForm } from '../interficies/register-form.interface.ts';
 import { Usuario } from 'src/app/models/usuario.model';
 
 

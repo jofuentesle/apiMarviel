@@ -42,3 +42,6 @@
 .invalid {
     border: 2px solid red;
 }
+p {
+    color: yellow;
+}

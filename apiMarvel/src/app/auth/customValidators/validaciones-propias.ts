@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+/*import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export class ValidacionesPropias {
 
@@ -11,4 +11,22 @@ export class ValidacionesPropias {
             
         }
     }
+}
+*/
+
+import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+
+export const matchPassword: ValidatorFn = (control:AbstractControl):ValidationErrors | null => {
+    
+    let password = control.get('password');
+    let password2 = control.get('password2');
+
+    if (password && password2 && password?.value != password2?.value) {
+        return {
+
+            passerrormatch : true
+        }
+    }
+    
+    return null;
 }

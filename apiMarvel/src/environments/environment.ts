@@ -2,7 +2,7 @@ export const environment = {
     
     production: false,
 
-    BASE_URL: 'http://localhost:3000/api',
+    BASE_URL: 'http://localhost:3000/',
 
     API_URL: 'http://gateway.marvel.com/v1/public/comics?',
     TS_KEY: 1,

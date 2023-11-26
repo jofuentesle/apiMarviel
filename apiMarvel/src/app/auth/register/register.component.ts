@@ -3,11 +3,13 @@ import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, Valid
 import { Router } from '@angular/router';
 
 /*servicios*/
-import { AuthService } from '../service/auth.service';
+import { UserService } from 'src/app/service/user.service';
+/*validaciones propias*/
+import { matchPassword } from '../customValidators/validaciones-propias';
+/*modelos e interficies*/
 import { RegisterForm } from '../../interficies/register-form.interface.ts'
-
-import { ValidacionesPropias } from '../customValidators/validaciones-propias';
-
+/*sweetalert*/
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register',
@@ -20,27 +22,30 @@ export class RegisterComponent implements OnInit {
   regForm: FormGroup
   public formSubmitted = false;
 
+
   constructor(  private fb: FormBuilder, 
-                private authService: AuthService, 
+                private userService: UserService,
                 private router:Router ) {
 
                   this.regForm = this.fb.group({
-
-                  })
-
-
+                    nombre: new FormControl('jordi', [ Validators.required] ),
+                    email: new FormControl('jfuentesleiva@gmail.com', [ Validators.required, Validators.pattern(/\S+@\S+\.\S+/)] ),
+                    password: new FormControl( '111111', [ Validators.required, Validators.minLength(6)] ),
+                    password2: new FormControl( '111111', [ Validators.required, Validators.minLength(6)] ),
+                    terminos: new FormControl( false, [Validators.requiredTrue] ),
+                  },
+                    {
+                      validators:matchPassword
+                    }
+                  )
                 }
+             
 
   ngOnInit(): void { 
-    this.regForm = this.fb.group({
-      email: new FormControl(null, [ Validators.required, Validators.pattern(/\S+@\S+\.\S+/)] ),
-      password: new FormControl( null, [ Validators.required, Validators.minLength(6)] ),
-      password2: new FormControl( null, [ Validators.required, Validators.minLength(6) ]),
-      terminos: new FormControl( null, Validators.required )
-    })
+   
   }
 
-
+  get f() { return this.regForm.controls; }
 
   get email() {
     return this.regForm.controls['email'];
@@ -52,22 +57,28 @@ export class RegisterComponent implements OnInit {
 
   //Create user
   createUser() {
-    /*console.log(this.regForm);
-    if( this.regForm.valid && this.regForm.get('terminos')?.value === true ) {
+
+    if( this.regForm.valid) {
       this.formSubmitted = true;
-      console.log('Posteando formulario');
-    } else {
-      console.log("no es correcto")
-    }*/
-    console.log('submitted from ' , this.regForm.value, this.regForm.invalid);
-    this.formSubmitted = true;
+      this.userService.createUserBBDD(this.regForm.value)
+      .subscribe (
+        {
+          next: res => {
+          console.log(res);
+          console.log('usuario creado');
+          },
+          error: err => {
+            Swal.fire('Error', err.error.msg, 'error')
+          } 
+        })
+      } else {
+      // stop here if form is invalid
+      return;
+    }
   }
-
-  //Validaciones del formulario
- 
-
-  aceptaTerminos() {
-
-    return !this.regForm.get('terminos')?.value && this.regForm.get('terminos')?.touched;
-  }
+  //Reset form
+  onReset() {
+    this.formSubmitted  = false;
+    this.regForm.reset();
+}
 }

@@ -11,6 +11,27 @@
               >
               <div class="form-floating mb-3">
                 <input 
+                  type="text" 
+                  class="form-control"  
+                  placeholder="Mi nombre"
+                  formControlName="nombre"
+                  [class.invalid]="
+                    regForm.get('nombre')?.invalid && 
+                    (regForm.get('nombre')?.touched || 
+                    regForm.get('nombre')?.dirty || formSubmitted) "
+                  >
+                <label for="floatingInput">Nombre</label>
+                <div class="mt-3 text-danger">
+                  <div>
+                    <span *ngIf="regForm.get('nombre')?.hasError('required') && regForm.get('nombre')?.touched">
+                      Por favor introduce un nombre
+                    </span>  
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="form-floating mb-3">
+                <input 
                   type="email" 
                   class="form-control" 
                   id="floatingInput" 
@@ -52,7 +73,7 @@
                   <span *ngIf="regForm.get('password')?.hasError('required') && regForm.get('password')?.touched">
                     Por favor introduce una contraseña
                   </span>
-                  <span *ngIf="regForm.get('password')?.hasError('minLength')">
+                  <span *ngIf="regForm.get('password')?.hasError('minlength')">
                     La contraseña debe tener más de 6 carácteres
                   </span>
                 </div>
@@ -77,21 +98,10 @@
                   <span *ngIf="regForm.get('password2')?.hasError('required') && regForm.get('password2')?.touched">
                     Por favor introduce una contraseña
                   </span>
-                  <span *ngIf="regForm.get('password2')?.hasError('minLength')">
-                    Por favor introduce una contraseña
-                  </span>
-                </div>
-              </div>
-              <div class="mt-3 text-danger">
-                <div>
-                  <span *ngIf="regForm.get('password2')?.invalid && regForm.get('password2')?.touched">
+                  <span *ngIf="regForm.get('password2')?.hasError('minlength')">
                     La contraseña debe tener más de 6 carácteres
                   </span>
-                </div>
-              </div>
-              <div class="mt-3 text-danger">
-                <div>
-                  <span *ngIf="">
+                  <span *ngIf="regForm.errors?.['passerrormatch']">
                     Las contraseñas no coinciden
                   </span>
                 </div>
@@ -110,34 +120,24 @@
                   >
                 <label for="floatingPassword"><a class="ms-2"href="">Aceptas las condiciones de uso</a></label>
                 <div class="mt-3 text-danger">
-                  <span *ngIf="aceptaTerminos()"> Debes aceptar los terminos para continuar</span>
-
+                  <span *ngIf="f.terminos?.errors && formSubmitted">
+                    Debes aceptar los terminos para continuar</span>
                 </div>
               </div>
               <div class="d-grid btnBlock">
                 <button 
                   class="btn btnBlock__Item" 
                   type="submit"
-                  [disabled]=""
+                  
                   >
                   Registrate
                 </button>
               </div>
               <hr class="my-4">
-              <div class="d-grid mb-2 btnBlock">
-                <button 
-                  class="btn btnBlock__Item" 
-                  type="submit"
-                  [disabled]="regForm.value.invalid"
-                  >
-                  <i class="fab fa-google me-2"></i>
-                   Accede con Google
-                </button>
-              </div>
                 <div class="mt-3">
                   <p class="colorfont">¿Ya tienes una cuenta con nosotros? <a routerLink="/login">Accede</a></p>
                 </div>
-            </form>  
+            </form> 
         </div>
       </div>
     </div>
