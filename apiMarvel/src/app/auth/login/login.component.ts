@@ -1,44 +1,95 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ReactiveFormsModule, FormControl, FormGroup, Validator, Validators } from '@angular/forms';
+/*Sweetalert*/
+import Swal from 'sweetalert2'
+//Servicios
+import { AuthService } from 'src/app/service/auth.service';
+//Modelos
+import { Usuario } from 'src/app/models/usuario.model';
+//Interfaces
+import {} from 'src/app/interficies/login-form.interface';
+
+declare const google: any;
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
-  loginForm!:FormGroup
+  @ViewChild('googleBtn') googleBtn: ElementRef;
+  loginForm:FormGroup
   
-  constructor( private router: Router ) { }
-
-  
-
-  //Iniciamos formulario
-
-  ngOnInit(): void {
+  constructor(  private authService:AuthService, 
+                private router: Router ) 
+            {
 
     this.loginForm = new FormGroup({ 
-      email:    new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required)
+      email:    new FormControl(localStorage.getItem( 'email' ) || '', [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]),
+      password: new FormControl('', Validators.required),
+      remember: new FormControl(false)
     })
+   }
+
+  //Iniciamos formulario
+  ngOnInit(): void {
+
+  }
+  ngAfterViewInit(): void {
+    this.googleInit()
   }
 
+  googleInit() {
+    google.accounts.id.initialize({
+      client_id: "1037885035266-qe2e6rgof6k4n8nnqeo0a3i902s6v2d8.apps.googleusercontent.com",
+      callback: (response:any) => this.handleCredentialResponse(response)
+    });
+    google.accounts.id.renderButton(
+      //document.getElementById("buttonDiv"),
+      this.googleBtn.nativeElement,
+      { theme: "outline", size: "large" }  // customization attributes
+    );
+  }
+
+  handleCredentialResponse( response: any ) {
+
+    console.log("Encoded JWT ID token " + JSON.stringify(response.credential));
+    this.authService.loginGoogle(response.credential).subscribe( resp => {
+      this.router.navigateByUrl('/')
+    });
+  }
+  
   get emailField(): any {
     return this.loginForm.get('email');
   }
+
   get passwordField(): any {
     return this.loginForm.get('password');
   }
   
   loginFormSubmit(): void {
-    console.log("hola" + this.emailField.value);
-    //this.router.navigateByUrl('/');
-    // Call Api
+    
+    this.authService.loginUserService(this.loginForm.value)
+    .subscribe({
+      next: res => {
+        if( this.loginForm.get('remember')?.value === true ) {
+          //guardamos email localSorage y dirigimos home
+          localStorage.setItem( 'email',this.loginForm.get('email')?.value);
+          this.router.navigateByUrl('/')
+        } else {
+          localStorage.removeItem( 'email');
+          this.router.navigateByUrl('/')
+        }
+
+
+      },
+      error: err => {
+        Swal.fire('Error', err.error.msg, 'error')
+      } 
+    });
   }
-
-
 }

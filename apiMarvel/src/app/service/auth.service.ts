@@ -1,11 +1,10 @@
-//import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators'
+import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
-import { RegisterForm } from '../interficies/register-form.interface.ts';
+import { LoginForm } from '../interficies/login-form.interface';
 import { Usuario } from 'src/app/models/usuario.model';
 
 
@@ -20,20 +19,42 @@ export class AuthService {
   //definimos usuario
   public usuarioDB!: Usuario;
 
-  constructor(  //private http: HttpClient,
+  constructor(  private http: HttpClient,
                 private router: Router,
                 private ngZone: NgZone ) { }
 
-  createUser ( formData: RegisterForm ) {
+  loginUserService ( formData: LoginForm ) {
+      return this.http.post<LoginForm>(`${base_url}/login`, formData)
+          //Guardamos token localStorage
+          .pipe(
+            tap( (resp: any ) => {
+              localStorage.setItem('token', resp.token)
+            })
+          );
+    }
+    
+    
+    loginGoogle( token: string ) {
 
-  console.log("hola");
-  /*
-    return this.http.post(`${ base_url }/usuarios`, formData )
-            .pipe(
-              tap( (resp: any) => {
-                localStorage.setItem('token', resp.token)
-              })
-            )
-*/
+      return this.http.post(`${ base_url }/login/google`, { token} )
+       //Guardamos token localStorage
+        .pipe(
+          tap( (resp: any ) => {
+            localStorage.setItem('token', resp.token)
+          })
+        )
+    }
+
+    validarToken() {
+
+      const token = localStorage.getItem('token') || "";
+
+      this.http.get(`${ base_url }/login/renew`, {
+        headers: {
+          'x-token': token
+        }
+      })
+
+    }
+  
   }
-}

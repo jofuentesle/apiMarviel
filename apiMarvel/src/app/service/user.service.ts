@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
-import { RegisterForm } from '../interficies/register-form.interface.ts'
+import { RegisterForm } from '../interficies/register-form.interface.ts';
+import { LoginForm } from '../interficies/login-form.interface';
 import { Usuario } from '../models/usuario.model.js';
 
 //Declaramos url
@@ -25,6 +27,14 @@ export class UserService {
     console.log(base_url);
     console.log('Creando user desde servicio' + data.email);
 
-    return this.http.post(`${base_url}/usuarios`, data);
+    return this.http.post<RegisterForm>(`${base_url}/usuarios`, data)
+    //Guardamos token localStorage
+    .pipe(
+      tap( (resp: any ) => {
+        localStorage.setItem('token', resp.token)
+      })
+    );
+    ;
   }
+
 }

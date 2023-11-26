@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 /*servicios*/
@@ -45,15 +45,17 @@ export class RegisterComponent implements OnInit {
    
   }
 
-  get f() { return this.regForm.controls; }
+  get f() { 
+    return this.regForm.controls; 
+  }
 
   get email() {
     return this.regForm.controls['email'];
-} 
+  } 
 
   get password() {
     return this.regForm.controls['password'];
-}
+  }
 
   //Create user
   createUser() {
