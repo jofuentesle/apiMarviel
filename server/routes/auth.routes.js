@@ -3,9 +3,13 @@
 */
 
 const { Router } = require('express');
-const { check } = require('express-validator');
 const { validarCampos } = require('../middelwares/validar-campos');
-const { loginUsers, loginGoogle } = require('../controllers/auth.controllers');
+const { check } = require('express-validator');
+
+const { validarJWT } = require('../middelwares/validar-jwt');
+
+const { loginUsers, loginGoogle, renewToken } = require('../controllers/auth.controllers');
+
 
 const router = Router();
 
@@ -24,5 +28,6 @@ router.post('/google',
     ],
     loginGoogle);
 
+router.get('/renew', validarJWT);
 
 module.exports = router

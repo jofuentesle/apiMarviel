@@ -2,9 +2,7 @@ const { response } = require('express')
 const Usuario = require('../models/usuario.model');
 const  bcrypt = require('bcryptjs');
 const generarJWT = require('../helpers/jwt');
-//const googleVerify = require('../helpers/google-sign');
-const generarJWT = require( '../helpers/google-sign');
-
+const googleVerify = require('../helpers/google-sign');
 
 const loginUsers = async ( req, res = response ) => {
 
@@ -43,11 +41,9 @@ const loginUsers = async ( req, res = response ) => {
         res.status(500).json({
             ok: false,
             msg: 'Error en el login del usuario'
-        })
-        
+        })      
     }
 }
-
 
 //Login user Google
 const loginGoogle = async (req, res = response) => {
@@ -62,8 +58,7 @@ const loginGoogle = async (req, res = response) => {
         let usuario
 
         if( !usuarioDB ) {
-            //creamos nuevo usuario 
-
+            //creamos usuario    
             usuario = new Usuario({
                 nombre: name,
                 email,
@@ -98,8 +93,27 @@ const loginGoogle = async (req, res = response) => {
     }
 }
 
+//refresh token
+const renewToken = async (req, res = response) => {
+
+    const uid = req.uid;
+
+    //generar token
+    const token = await generarJWT( uid );
+
+    //obtener usuario por uid
+    const usuarioDB = await Usuario.findById(uid);
+
+    res.json({
+        ok: true,
+        token,
+        usuarioDB
+    })
+}
+
 module.exports = {
     loginUsers,
-    loginGoogle
+    loginGoogle,
+    renewToken
 
 }  
