@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@ng-bootstrap/ng-bootstrap": "^15.1.2"
+    "@ng-bootstrap/ng-bootstrap": "^15.1.2",
+    "google-auth-library": "^9.2.0"
   }
 }
