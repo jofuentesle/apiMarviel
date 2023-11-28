@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   @ViewChild('googleBtn') googleBtn: ElementRef;
   loginForm:FormGroup
+  isLoogin = false;
   
   constructor(  private authService:AuthService, 
                 private router: Router ) 
@@ -80,9 +81,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
           //guardamos email localSorage y dirigimos home
           localStorage.setItem( 'email',this.loginForm.get('email')?.value);
           this.router.navigateByUrl('/')
+          this.isLoogin = true;
         } else {
           localStorage.removeItem( 'email');
           this.router.navigateByUrl('/')
+          this.isLoogin = true;
         }
 
 
