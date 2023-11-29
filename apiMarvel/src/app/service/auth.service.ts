@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 import { LoginForm } from '../interficies/login-form.interface';
@@ -49,11 +49,16 @@ export class AuthService {
 
       const token = localStorage.getItem('token') || "";
 
-      this.http.get(`${ base_url }/login/renew`, {
+      return this.http.get(`${ base_url }/login/renew`, {
         headers: {
           'x-token': token
         }
-      })
+      }).pipe(
+        tap( (resp:any) => {
+          localStorage.setItem('token', resp.token)
+        }),
+        map( (resp:any) => true)
+      )
 
     }
   

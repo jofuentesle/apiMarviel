@@ -4,7 +4,6 @@ import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 import { RegisterForm } from '../interficies/register-form.interface.ts';
-import { LoginForm } from '../interficies/login-form.interface';
 import { Usuario } from '../models/usuario.model.js';
 
 //Declaramos url

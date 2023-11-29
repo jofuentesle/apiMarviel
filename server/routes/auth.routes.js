@@ -6,7 +6,7 @@ const { Router } = require('express');
 const { validarCampos } = require('../middelwares/validar-campos');
 const { check } = require('express-validator');
 
-const { validarJWT } = require('../middelwares/validar-jwt');
+//const { validarJWT } = require('../middelwares/validar-jwt');
 
 const { loginUsers, loginGoogle, renewToken } = require('../controllers/auth.controllers');
 
@@ -21,6 +21,7 @@ router.post('/',
     ],
     loginUsers);
 
+    
 router.post('/google', 
     [
         check('token', 'El token de google es obligatorio').notEmpty(),
@@ -28,6 +29,7 @@ router.post('/google',
     ],
     loginGoogle);
 
-router.get('/renew', validarJWT);
+
+router.get('/renew', renewToken);
 
 module.exports = router

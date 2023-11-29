@@ -1,9 +1,18 @@
+import { inject } from "@angular/core";
 import { CanActivateFn } from '@angular/router';
+import { tap } from 'rxjs';
+import { AuthService } from '../service/auth.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const AuthGuard: CanActivateFn = (route, state) => {
 
-  
+  //injectamos servicio
+  const authService = inject(AuthService);
+  const router = inject(Router)
 
-  console.log("paso por el canactivate")
-  return true;
+  return authService.validarToken()
+  .pipe( 
+    tap( !autentificado ) {
+      this.router.navigate
+    }
+  )
 };

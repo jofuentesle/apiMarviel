@@ -28,7 +28,7 @@ dbConnection();
 app.use('/', require('./routes/marvel.routes'));
 app.use('/usuarios', require('./routes/usuarios.routes'));
 app.use('/login', require('./routes/auth.routes'));
-app.use( '/api/login', require('./routes/auth'));
+
 
 
 
