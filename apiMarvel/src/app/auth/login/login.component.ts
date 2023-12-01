@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   constructor(  private authService:AuthService, 
                 private router: Router ) 
             {
-
+              
     this.loginForm = new FormGroup({ 
       email:    new FormControl(localStorage.getItem( 'email' ) || '', [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]),
       password: new FormControl('', Validators.required),
@@ -38,19 +38,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   //Iniciamos formulario
   ngOnInit(): void {
-
-  }
-  ngAfterViewInit(): void {
     this.googleInit()
   }
+  ngAfterViewInit(): void {
+    
+  }
 
-  googleInit() {
-    google.accounts.id.initialize({
+  async googleInit() {
+    await google.accounts.id.initialize({
       client_id: "1037885035266-qe2e6rgof6k4n8nnqeo0a3i902s6v2d8.apps.googleusercontent.com",
       callback: (response:any) => this.handleCredentialResponse(response)
     });
-    google.accounts.id.renderButton(
-      //document.getElementById("buttonDiv"),
+    await google.accounts.id.renderButton(
       this.googleBtn.nativeElement,
       { theme: "outline", size: "large" }  // customization attributes
     );

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 import { LoginForm } from '../interficies/login-form.interface';
@@ -11,6 +11,9 @@ import { Observable, of as observableOf } from 'rxjs';
 
 //Declaramos url
 const base_url = environment.BASE_URL; 
+
+//Declaramos el objeto Google
+declare const google:any;
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +51,11 @@ export class AuthService {
 
     validarToken(): Observable<Boolean> {
 
-      const token = localStorage.getItem('token') || '';
+      const token = localStorage.getItem('token') || '0';
 
+      if ( token === '0'){
+        return observableOf(false);
+      } else {
       return this.http.get(`${ base_url }/login/renew`, {
         headers: {
           'x-token': token
@@ -58,7 +64,26 @@ export class AuthService {
         tap( (resp:any) => {
           localStorage.setItem('token', resp.token)
         }),
-        map( (resp:any) => true)
-      )
-   }    
+        map( (resp:any) => true),
+        catchError( error => observableOf(false))
+        )
+      }    
+    }
+
+    //Método para el logout google y normal
+
+
+    googleInit() {
+    }
+    logout() {
+      localStorage.removeItem('token');
+      
+      //logout si ha entrado con Google
+      google.accounts.id.revoke('inimardi.reprodisseny@gmail.com', () => {
+        
+        this.router.navigateByUrl('/login');
+      
+      })
+
+    }
   }

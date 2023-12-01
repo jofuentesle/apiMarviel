@@ -10,7 +10,7 @@
                     data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="collapse navbar-collapse main-navBlock" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
                         <a  routerLink="/login" 
                             class="nav-item nav-link">
@@ -20,6 +20,10 @@
                             class="nav-item nav-link">
                             Registro
                         </a>
+                        <a  (click)="logOut()" 
+                        class="nav-item nav-link">
+                        Salir
+                    </a>
                     </div>
                     <button type="button" class="btn text-white p-0 d-none d-lg-block" data-bs-toggle="modal"
                         data-bs-target="#searchModal"><i class="fa fa-search"></i></button>
