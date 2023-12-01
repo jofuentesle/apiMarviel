@@ -97,19 +97,19 @@ const loginGoogle = async (req, res = response) => {
 const renewToken = async (req, res = response) => {
 
     const uid = req.uid;
-    console.log( '0', uid )
-    //generar token
-    const token = await generarJWT( uid );
 
-    //obtener usuario por uid
-    const usuarioDB = await Usuario.findById(uid);
+  
+        //generar token
+        const token = await generarJWT( uid );
 
-    res.json({
-        ok: true,
-        token,
-        usuarioDB
-    })
-    
+        //obtener usuario por uid
+        const usuarioDB = await Usuario.findById(uid);
+
+        res.json({
+            ok: true,
+            token,
+            usuarioDB
+        })    
 }
 
 module.exports = {

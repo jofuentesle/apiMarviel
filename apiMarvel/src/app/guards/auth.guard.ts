@@ -15,17 +15,10 @@ export class AuthGuard implements CanActivate {
 
  canActivate(
     route: ActivatedRouteSnapshot, 
-    state: RouterStateSnapshot) {
-
-      this.authService.validarToken().subscribe(resp => {
-
-        this.router.navigateByUrl('/')
-
-        return resp;
-      })
-
-      
-    
-      return false;
+    state: RouterStateSnapshot): any
+     {
+     
+      return this.authService.validarToken();
+    };
  }
-};
+

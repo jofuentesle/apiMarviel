@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 
 import { LoginForm } from '../interficies/login-form.interface';
 import { Usuario } from 'src/app/models/usuario.model';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 
 
 //Declaramos url
@@ -60,7 +60,5 @@ export class AuthService {
         }),
         map( (resp:any) => true)
       )
-
-    }
-  
+   }    
   }
