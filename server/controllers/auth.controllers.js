@@ -53,7 +53,6 @@ const loginGoogle = async (req, res = response) => {
         const { name, email, picture } = await googleVerify( req.body.token );
 
         //Verificar si email existe
-
         const usuarioDB = await Usuario.findOne({ email });
         let usuario
 
@@ -81,6 +80,7 @@ const loginGoogle = async (req, res = response) => {
             ok: true,
             name,
             email,
+            picture,
             token
         })
 
@@ -109,6 +109,7 @@ const renewToken = async (req, res = response) => {
         token,
         usuarioDB
     })
+    
 }
 
 module.exports = {

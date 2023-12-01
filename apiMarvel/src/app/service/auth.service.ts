@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 
 import { LoginForm } from '../interficies/login-form.interface';
 import { Usuario } from 'src/app/models/usuario.model';
+import { Observable } from 'rxjs';
 
 
 //Declaramos url
@@ -33,7 +34,7 @@ export class AuthService {
           );
     }
     
-    
+    //Google autenthication TODO
     loginGoogle( token: string ) {
 
       return this.http.post(`${ base_url }/login/google`, { token} )
@@ -45,9 +46,9 @@ export class AuthService {
         )
     }
 
-    validarToken() {
+    validarToken(): Observable<Boolean> {
 
-      const token = localStorage.getItem('token') || "";
+      const token = localStorage.getItem('token') || '';
 
       return this.http.get(`${ base_url }/login/renew`, {
         headers: {

@@ -56,13 +56,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
     );
   }
 
+  //autentificación token google
   handleCredentialResponse( response: any ) {
-    //console.log("Encoded JWT ID token " + response.credential);
     
-    this.authService.loginGoogle(response.credential)
+    this.authService.loginGoogle( response.credential )
     .subscribe( resp => {
-      //console.log({ login: resp})
       this.router.navigateByUrl('/')
+    
     });
 
   }
