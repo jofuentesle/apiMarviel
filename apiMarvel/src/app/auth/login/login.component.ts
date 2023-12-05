@@ -38,10 +38,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   //Iniciamos formulario
   ngOnInit(): void {
-    this.googleInit()
+ 
   }
   ngAfterViewInit(): void {
-    
+    this.googleInit()
   }
 
   async googleInit() {
@@ -61,9 +61,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.authService.loginGoogle( response.credential )
     .subscribe( resp => {
       this.router.navigateByUrl('/')
-    
     });
-
   }
   
   get emailField(): any {
