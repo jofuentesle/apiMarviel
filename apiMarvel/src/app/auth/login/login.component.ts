@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   //autentificación token google
   handleCredentialResponse( response: any ) {
-    
     this.authService.loginGoogle( response.credential )
     .subscribe( resp => {
       this.router.navigateByUrl('/')

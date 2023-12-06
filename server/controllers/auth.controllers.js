@@ -51,7 +51,7 @@ const loginGoogle = async (req, res = response) => {
     try {
     
         const { name, email, picture } = await googleVerify( req.body.token );
-
+        
         //Verificar si email existe
         const usuarioDB = await Usuario.findOne({ email });
         let usuario
@@ -97,6 +97,7 @@ const loginGoogle = async (req, res = response) => {
 const renewToken = async (req, res = response) => {
 
     const uid = req.uid;
+    console.log(req)
         //generar token
         const token = await generarJWT( uid );
 

@@ -39,7 +39,6 @@ export class AuthService {
     
     //Google autenthication TODO
     loginGoogle( token: string ) {
-
       return this.http.post(`${ base_url }/login/google`, { token} )
        //Guardamos token localStorage
         .pipe(
@@ -49,26 +48,15 @@ export class AuthService {
         )
     }
 
-    validarToken(): Observable<Boolean> {
+    validarToken() {
 
-      const token = localStorage.getItem('token') || '0';
-
-      if ( token === '0'){
-        return observableOf(false);
-      } else {
+      const token = localStorage.getItem('token') || '';
+      
       return this.http.get(`${ base_url }/login/renew`, {
         headers: {
           'x-token': token
         }
-      }).pipe(
-        tap( (resp:any) => {
-          console.log({neive: resp});
-          localStorage.setItem('token', resp.token)
-        }),
-        map( (resp:any) => true),
-        catchError( error => observableOf(false))
-        )
-      }    
+      })  
     }
 
     //Método para el logout google y normal
@@ -80,7 +68,7 @@ export class AuthService {
       localStorage.removeItem('token');
       
       //logout si ha entrado con Google
-      google.accounts.id.revoke('inimardi.reprodisseny@gmail.com', () => {
+      google.accounts.id.revoke('alexjfl88@gmail.com', () => {
         
         this.router.navigateByUrl('/login');
       
