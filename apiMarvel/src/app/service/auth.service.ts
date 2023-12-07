@@ -60,8 +60,9 @@ export class AuthService {
         tap( (resp:any) => {
 
           //grabamos usuario actual conectado
-         // const { email, google, nombre, role, img, uid } = resp.usuario; 
-          //this.usuarioDB = new Usuario(nombre, email,'', img, google, role, uid )
+          const { email, google, nombre, role, img, uid } = resp.usuarioDB; 
+          
+          this.usuarioDB = new Usuario(nombre, email,'', img, google, role, uid )
           
           localStorage.setItem('token', resp.token)
         }),
@@ -70,15 +71,12 @@ export class AuthService {
       )
     }
 
-    //Método para el logout google y normal
-    googleInit() {
-    }
 
     logout() {
       localStorage.removeItem('token');
       
       //logout si ha entrado con Google
-      google.accounts.id.revoke('jfuentesleiva@gmail.com', () => {
+      google.accounts.id.revoke(this.usuarioDB.email, () => {
         
         this.router.navigateByUrl('/login');
       
