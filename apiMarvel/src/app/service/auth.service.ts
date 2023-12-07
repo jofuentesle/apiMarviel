@@ -49,14 +49,17 @@ export class AuthService {
     }
 
     validarToken() {
-
       const token = localStorage.getItem('token') || '';
-      
+      console.log('guard esto');
       return this.http.get(`${ base_url }/login/renew`, {
         headers: {
           'x-token': token
         }
-      })  
+      }).pipe(
+        tap( (resp:any) => {
+          console.log(resp);
+        })
+      )  
     }
 
     //Método para el logout google y normal

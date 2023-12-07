@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -19,9 +19,9 @@ declare const google: any;
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
 
-  @ViewChild('googleBtn') googleBtn: ElementRef;
+  //@ViewChild('googleBtn') googleBtn: ElementRef;
   loginForm:FormGroup
   isLoogin = false;
   
@@ -40,6 +40,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
  
   }
+
+
+  /**************
+   * Autentificación Google TODO
+   
   ngAfterViewInit(): void {
     this.googleInit()
   }
@@ -62,7 +67,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.router.navigateByUrl('/')
     });
   }
-  
+  */
+
   get emailField(): any {
     return this.loginForm.get('email');
   }
