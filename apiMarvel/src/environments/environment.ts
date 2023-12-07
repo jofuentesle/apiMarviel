@@ -18,3 +18,5 @@ export const environment = {
 //http://gateway.marvel.com/v1/public/comics?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a
 
 //1d27b58c6068ecae8a6161358084d2b8fd9ae169c4f9a355e818b2149ba13bcbecd2cc118
+
+//http://gateway.marvel.com/v1/public/comics?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a
