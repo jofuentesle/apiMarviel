@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 
 import { LoginForm } from '../interficies/login-form.interface';
 import { Usuario } from 'src/app/models/usuario.model';
-import { Observable, of as observableOf } from 'rxjs';
+import { of } from 'rxjs';
 
 
 //Declaramos url
@@ -56,19 +56,29 @@ export class AuthService {
         headers: {
           'x-token': token
         }
-      })  
+      }).pipe(
+        tap( (resp:any) => {
+
+          //grabamos usuario actual conectado
+         // const { email, google, nombre, role, img, uid } = resp.usuario; 
+          //this.usuarioDB = new Usuario(nombre, email,'', img, google, role, uid )
+          
+          localStorage.setItem('token', resp.token)
+        }),
+        map( resp => true),
+        catchError( error => of(false) )
+      )
     }
 
     //Método para el logout google y normal
-
-
     googleInit() {
     }
+
     logout() {
       localStorage.removeItem('token');
       
       //logout si ha entrado con Google
-      google.accounts.id.revoke('alexjfl88@gmail.com', () => {
+      google.accounts.id.revoke('jfuentesleiva@gmail.com', () => {
         
         this.router.navigateByUrl('/login');
       

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { tap } from 'rxjs';
 
 import { AuthService } from '../service/auth.service';
 
@@ -17,15 +17,15 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    this.authService.validarToken()
-      .subscribe( resp => {
-        console.log(resp);
+    return this.authService.validarToken()
+    .pipe(
+      tap( isAuth => {
+        if( !isAuth ) {
+          this.router.navigateByUrl('/login');
+        }
       })
-
-    console.log("pasé por el guard");
-    
-    return true;
-    
+    )
+    this
   }
 
 

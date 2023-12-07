@@ -97,7 +97,7 @@ const loginGoogle = async (req, res = response) => {
 const renewToken = async (req, res = response) => {
 
     const uid = req.uid;
-    console.log(req)
+    
         //generar token
         const token = await generarJWT( uid );
 

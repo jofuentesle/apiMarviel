@@ -10,4 +10,8 @@ export class Usuario {
         public uid?: string
     ) {}
 
+    get imgUrl() {
+        return ''
+    }
+
 }
