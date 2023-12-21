@@ -30,9 +30,12 @@ export class LoadService {
 
   loadContent = () => {
 
-   let publickey: string = '4f9a355e818b2149ba13bcbecd2cc118';
-   let privatekey:string = 'd27b58c6068ecae8a6161358084d2b8fd9ae169c';
-let times:string = "1" 
+    let publickey: string = '4f9a355e818b2149ba13bcbecd2cc118';
+    let privatekey:string = 'd27b58c6068ecae8a6161358084d2b8fd9ae169c';
+    let times:string = "1";
+    //let url:string = environment.API_URL;
+
+    //console.log('esto es la url', url);
 
 //  console.log(Md5.init('test'));
     //console.log(base_url);
@@ -41,11 +44,11 @@ let times:string = "1"
     //console.log(Md5.init(`${times}` +  + `${privatekey}`+  `${publickey}`));
     //let has = '359cb361c0a0717009b9228c9656015a';
 
-    fetch('http://gateway.marvel.com/v1/public/comics?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a')
-    .then((resp => resp.json()))
+    fetch(`${""}`)
+    .then((url => url.json()))
     .then( json => console.log(json));
 
-    const md5 = new Md5();
+  const md5 = new Md5();
   console.log(md5.appendStr((`${times}` +  + `${privatekey}`+  `${publickey}`)).end());
   
   }

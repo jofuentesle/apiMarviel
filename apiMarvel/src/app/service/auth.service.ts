@@ -1,5 +1,6 @@
+import { Inject, Injectable, NgZone } from '@angular/core';
+
 import { HttpClient } from '@angular/common/http';
-import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap, map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -7,7 +8,6 @@ import { environment } from '../../environments/environment';
 import { LoginForm } from '../interficies/login-form.interface';
 import { Usuario } from 'src/app/models/usuario.model';
 import { of } from 'rxjs';
-
 
 //Declaramos url
 const base_url = environment.BASE_URL; 
@@ -23,7 +23,10 @@ export class AuthService {
   //definimos usuario
   public usuarioDB!: Usuario;
 
-  constructor(  private http: HttpClient,
+
+  
+  constructor(
+                private http: HttpClient,
                 private router: Router,
                 private ngZone: NgZone ) { }
 
