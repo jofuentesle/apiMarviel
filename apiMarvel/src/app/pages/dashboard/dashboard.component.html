@@ -1,1 +1,26 @@
-<h1>Hola mundo</h1>
+<h1>SuperHeroes universo Marvel</h1>
+
+
+<div class="container mainBlock">
+    <div 
+        *ngFor="let character of allCharacters"
+        >
+        <div class="card">
+            <div class="card2">
+                <div class="card" style="width: 18rem;">
+                    <img src="#" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h3 class="card-title">{{character.name}}</h3>
+                      <h3>{{character.thumbnail | json}}</h3>
+                      <ul *ngFor=" let item of character.thumbnail">
+                        <li></li>
+                        </ul>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+  

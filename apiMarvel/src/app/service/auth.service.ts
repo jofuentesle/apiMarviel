@@ -22,8 +22,6 @@ export class AuthService {
 
   //definimos usuario
   public usuarioDB!: Usuario;
-
-
   
   constructor(
                 private http: HttpClient,
@@ -35,6 +33,7 @@ export class AuthService {
           //Guardamos token localStorage
           .pipe(
             tap( (resp: any ) => {
+              this.usuarioDB = resp.usuarioDB;
               localStorage.setItem('token', resp.token)
             })
           );
@@ -77,6 +76,13 @@ export class AuthService {
 
     logout() {
       localStorage.removeItem('token');
+
+      if ( !google.accounts.id ) {
+
+        this.router.navigateByUrl('/login');
+        
+
+      }
       
       //logout si ha entrado con Google
       google.accounts.id.revoke(this.usuarioDB.email, () => {

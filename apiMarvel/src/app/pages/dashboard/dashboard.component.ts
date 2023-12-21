@@ -4,6 +4,8 @@ import { LoadService } from 'src/app/service/load.service';
 import { environment } from '../../../environments/environment';
 
 import { Usuario } from 'src/app/models/usuario.model';
+import { Characters } from 'src/app/models/character.model';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,29 +15,31 @@ import { Usuario } from 'src/app/models/usuario.model';
 
 export class DashboardComponent implements OnInit {
 
-test:any;
+  //Definimos variables
   currentUser: Usuario;
+  allCharacters:Characters[];
 
   constructor( private loadService: LoadService ){}
 
-  
-  load() {
-    //console.log(environment.API_KEY);
-    this.loadService.loadContent();
-
-
+  //Convertimos objeto
+  stringify(obj:any)
+  {
+    return JSON.stringify(obj);
   }
 
-  load2() {
-    this.loadService.loadContent2().subscribe((res => {
-      console.log(res);
+  
+  //Cargamos los superheroes
+  load() {
+    this.loadService.loadContent().subscribe((res => {
+    this.allCharacters = res.data.results;
+    console.log(this.allCharacters);
     }))
   }
 
+
   ngOnInit(): void {
-    //this.test = environment.API_KEY;
+    //Cargamos contenido
     this.load();
-    this.load2();
 
   }
 

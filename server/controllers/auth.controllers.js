@@ -34,6 +34,7 @@ const loginUsers = async ( req, res = response ) => {
 
         res.status(200).json({
             ok: true,
+            usuarioDB,
             token
         })
     } catch (error) {
@@ -115,5 +116,4 @@ module.exports = {
     loginUsers,
     loginGoogle,
     renewToken
-
 }  

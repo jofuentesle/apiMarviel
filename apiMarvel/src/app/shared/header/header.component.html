@@ -14,11 +14,15 @@
                     <div class="navbar-nav ms-auto">
                         <a  routerLink="/login" 
                             class="nav-item nav-link">
-                            Acceso
+                            Login
                         </a>
                         <a  routerLink="/register" 
                             class="nav-item nav-link">
                             Registro
+                        </a>
+                        <a  routerLink="#" 
+                            class="nav-item nav-link">
+                            Hola {{ currentUser.nombre.toLocaleLowerCase()}}
                         </a>
                         <a  (click)="logOut()" 
                         class="nav-item nav-link">
