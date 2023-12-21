@@ -22,11 +22,20 @@ test:any;
   load() {
     //console.log(environment.API_KEY);
     this.loadService.loadContent();
+
+
+  }
+
+  load2() {
+    this.loadService.loadContent2().subscribe((res => {
+      console.log(res);
+    }))
   }
 
   ngOnInit(): void {
     //this.test = environment.API_KEY;
-    this.load()
+    this.load();
+    this.load2();
 
   }
 
