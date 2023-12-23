@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadService } from 'src/app/service/load.service';
 
 import { environment } from '../../../environments/environment';
+import { map } from 'rxjs';
 
 import { Usuario } from 'src/app/models/usuario.model';
 import { Characters } from 'src/app/models/character.model';
@@ -23,16 +24,10 @@ export class DashboardComponent implements OnInit {
 
   constructor( private loadService: LoadService ){}
 
-  //Convertimos objeto
-  stringify(obj:any)
-  {
-    return JSON.stringify(obj);
-  }
 
-  
   //Cargamos los superheroes
-  load() {
-    this.loadService.loadContent().subscribe((res => {
+  async load() {
+    await this.loadService.loadContent().subscribe((res => {
     this.allCharacters = res.data.results;
     console.log(res.data.results)
     }))
