@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
   //Definimos variables
   currentUser: Usuario;
   allCharacters:Characters[];
+  urlThumnails:string;
+  extThumnails:string;
 
   constructor( private loadService: LoadService ){}
 
@@ -32,10 +34,9 @@ export class DashboardComponent implements OnInit {
   load() {
     this.loadService.loadContent().subscribe((res => {
     this.allCharacters = res.data.results;
-    console.log(this.allCharacters);
+    console.log(res.data.results)
     }))
   }
-
 
   ngOnInit(): void {
     //Cargamos contenido
