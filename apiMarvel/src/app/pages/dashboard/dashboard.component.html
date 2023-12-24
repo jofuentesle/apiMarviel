@@ -8,13 +8,17 @@
         <div class="card">
             <div class="card2">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}" class="card-img-top" alt="...">
+                    <img 
+                      src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}" 
+                      class="card-img-top" alt="...">
                     <div class="card-body">
                       <h3 class="card-title">{{character.name}}</h3>
                       <p class="card-text">
                         {{ character.description }}
                       </p>
-                      <a href="{{ character.stories.collectionURI}}" class="btn btn-primary">Stories</a>
+                      <a 
+                        [routerLink]="['details/']"
+                        class="btn btn-primary">Stories</a>
                     </div>
                   </div>
             </div>
