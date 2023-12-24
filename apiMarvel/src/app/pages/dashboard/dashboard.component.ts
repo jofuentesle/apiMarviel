@@ -17,6 +17,7 @@ import { Characters } from 'src/app/models/character.model';
 export class DashboardComponent implements OnInit {
 
   //Definimos variables
+  apiPass = environment.API_PAST;
   currentUser: Usuario;
   allCharacters:Characters[];
   urlThumnails:string;
@@ -29,14 +30,14 @@ export class DashboardComponent implements OnInit {
   async load() {
     await this.loadService.loadContent().subscribe((res => {
     this.allCharacters = res.data.results;
-    console.log(res.data.results)
+    console.log(res.data.results);
     }))
   }
 
   ngOnInit(): void {
     //Cargamos contenido
     this.load();
-
+    console.log(this.apiPass);
   }
 
 }

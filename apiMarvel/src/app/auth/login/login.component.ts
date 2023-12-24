@@ -6,8 +6,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'
 //Servicios
 import { AuthService } from 'src/app/service/auth.service';
-//Modelos
-import { Usuario } from 'src/app/models/usuario.model';
 //Interfaces
 import {} from 'src/app/interficies/login-form.interface';
 
