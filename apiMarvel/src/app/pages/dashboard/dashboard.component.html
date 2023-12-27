@@ -1,8 +1,8 @@
 <h1>SuperHeroes universo Marvel</h1>
 
-
 <div class="container mainBlock">
     <div 
+        class="col mainBlock__item"
         *ngFor="let character of allCharacters"
         >
         <div class="card">
@@ -17,7 +17,7 @@
                         {{ character.description }}
                       </p>
                       <a 
-                        [routerLink]="['details/']"
+                        [routerLink]="['details/',character.id]"
                         class="btn btn-primary">Stories</a>
                     </div>
                   </div>

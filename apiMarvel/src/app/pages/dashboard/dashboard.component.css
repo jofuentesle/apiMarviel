@@ -24,8 +24,13 @@
    }
 */
    .mainBlock {
-    background-color: #1a1a1a;;
+      background-color: #202020;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      
    }
+
    h3 {
-    color: palevioletred;
+    color: palevioletr
    }

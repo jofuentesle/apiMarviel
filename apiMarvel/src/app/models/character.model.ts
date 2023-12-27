@@ -19,7 +19,9 @@ export class Characters {
             returned: number,
         },        
         public events: any,
-        public series: any
+        public series: any,
+        public data?:any,
+        public result?:any,
 
     ){
 
