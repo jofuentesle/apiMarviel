@@ -1,35 +1,27 @@
 <h1>SuperHeroes universo Marvel</h1>
 
-
 <div class="container mainBlock">
     <div 
+        class="col mainBlock__item"
         *ngFor="let character of allCharacters"
         >
         <div class="card">
             <div class="card2">
                 <div class="card" style="width: 18rem;">
-                    <img src="#" class="card-img-top" alt="...">
+                    <img 
+                      src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}" 
+                      class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h4 class="card-title">{{character.name}}</h4>
-                      <h5 *ngFor="let a of character.thumbnail">
-                      {{ a }}
-                      </h5>
-                      <a href="#" class="btn btn-primary">Más información</a>
+                      <h3 class="card-title">{{character.name}}</h3>
+                      <p class="card-text">
+                        {{ character.description }}
+                      </p>
+                      <a class="btn btn-primary" 
+                        [routerLink]="['details/',character.id]"
+                        >Stories</a>
                     </div>
                   </div>
-
-                  <span *ngFor="let cbs of allCharacters">
-                    <span *ngFor="let cbseries of cbs.thumbnail">
-                     <table> 
-                      <tr>
-                        <td>{{cbseries[0]}}</td>
-                        <td>{{cbseries[1]}}</td>
-                        
-                      </tr>  
-                     </table>
-                     </span>   
-                 </span>
             </div>
         </div>
-      </div>
     </div>
+</div>
