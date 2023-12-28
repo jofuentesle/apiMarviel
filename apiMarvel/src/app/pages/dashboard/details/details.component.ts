@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit, Input  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
 import { Observable } from 'rxjs';
 import { Characters } from 'src/app/models/character.model';
@@ -19,6 +19,7 @@ export class DetailsComponent implements OnInit {
                 private _route: ActivatedRoute ){
                 }
 
+                @Input () value: string;
   currentId:any;
   currentCharacter: any = [];
   showData2: Observable<any>;
