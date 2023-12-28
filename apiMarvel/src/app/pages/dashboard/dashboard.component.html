@@ -11,13 +11,25 @@
                     <img src="#" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h4 class="card-title">{{character.name}}</h4>
-                      <div *ngFor = "let item of character.thumbnail ">
-                        <p>{{ item }} </p>
-                      </div>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                      <h5 *ngFor="let a of character.thumbnail">
+                      {{ a }}
+                      </h5>
+                      <a href="#" class="btn btn-primary">Más información</a>
                     </div>
                   </div>
+
+                  <span *ngFor="let cbs of allCharacters">
+                    <span *ngFor="let cbseries of cbs.thumbnail">
+                     <table> 
+                      <tr>
+                        <td>{{cbseries[0]}}</td>
+                        <td>{{cbseries[1]}}</td>
+                        
+                      </tr>  
+                     </table>
+                     </span>   
+                 </span>
             </div>
         </div>
+      </div>
     </div>
-</div>
