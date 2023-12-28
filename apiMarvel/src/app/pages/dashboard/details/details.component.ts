@@ -4,12 +4,13 @@ import { ActivatedRoute } from '@angular/router'
 import { Observable } from 'rxjs';
 import { Characters } from 'src/app/models/character.model';
 import { LoadService } from 'src/app/service/load.service';
+import { ComicsComponent } from './comics/comics.component';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   standalone:true,
-  imports:[ CommonModule ],
+  imports:[ CommonModule, ComicsComponent ],
   styleUrl: './details.component.css'
 })
 export class DetailsComponent implements OnInit {
@@ -31,7 +32,7 @@ export class DetailsComponent implements OnInit {
     .subscribe((res:Characters) => {
       if(res) {
   
-        console.log( this.currentCharacter = res.data.results[0] );
+        this.currentCharacter = res.data.results[0];
   
       }
     })
@@ -40,8 +41,8 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit(): void {
     //Cargamos id
-   this.currentId =  this._route.snapshot.paramMap.get('id');
-    console.log('id',this.currentId);
+    this.currentId =  this._route.snapshot.paramMap.get('id');
+
     //Cargamos HeroebyId
     this.getChatarter();
   } 

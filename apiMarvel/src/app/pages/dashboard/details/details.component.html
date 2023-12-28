@@ -2,11 +2,16 @@
   <h1>SuperHeroes universo Marvel details</h1>
 
 <h2>{{this.currentCharacter.name}}</h2>
+    
+<div class="mainContentBlock">
     <div class="card" style="width: 18rem;">
-        <img src="{{currentCharacter.thumbnail.path }}.{{currentCharacter.thumbnail.extension}}"  class="card-img-top" alt="...">
-        <div class="card-body">
-          <p class="card-text">{{currentCharacter.description}}</p>
-          <h6 *ngFor="let story of currentCharacter.Stories">Stories</h6>
-        </div>
+      <img src="{{currentCharacter.thumbnail.path}}.{{currentCharacter.thumbnail.extension}}"  class="card-img-top" alt="...">
+      <div class="card-body">
+        <p class="card-text">{{currentCharacter.description}}</p>
+        <h6 *ngFor="let story of currentCharacter.Stories">Stories</h6>
       </div>
+    </div>
+    <div>    
+      <app-comics></app-comics>
+    </div>
 </div>

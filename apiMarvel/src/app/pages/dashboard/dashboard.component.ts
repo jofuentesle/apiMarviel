@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { LoadService } from 'src/app/service/load.service';
 
-import { environment } from '../../../environments/environment';
-
 import { Usuario } from 'src/app/models/usuario.model';
 import { Characters } from 'src/app/models/character.model';
 
