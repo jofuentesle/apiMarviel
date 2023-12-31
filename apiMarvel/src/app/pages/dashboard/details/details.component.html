@@ -1,17 +1,41 @@
 <div class="container">
   <h1>SuperHeroes universo Marvel details</h1>
-
-<h2>{{this.currentCharacter.name}}</h2>
     
 <div class="mainContentBlock">
-    <div class="card" style="width: 18rem;">
-      <img src="{{currentCharacter.thumbnail.path}}.{{currentCharacter.thumbnail.extension}}"  class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">{{currentCharacter.description}}</p>
-        <h6 *ngFor="let story of currentCharacter.Stories">Stories</h6>
+    <div class="card" style="width: 100%;">
+      <div class="card-title">
+        <h3>{{this.currentCharacter.name}}</h3>
       </div>
-    </div>
-    <div>    
-      <app-comics></app-comics>
+      <img 
+        *ngIf="testError"
+        src="{{currentCharacter.thumbnail.path}}.{{currentCharacter.thumbnail.extension}}"  class="card-img-top" alt="...">
+      <div class="card-body">
+        <div class="cardbodyItem">
+          <h4>Description:</h4>
+          <p class="card-text">{{currentCharacter.description}}</p>
+        </div>
+        <div class="cardbodyItem">
+          <h4>Events</h4>
+          <div *ngFor="let event of currentCharacter.events.items">
+            <h5>{{event.name}}</h5>
+            <a href="{{event.resourceURI}}"> getLink</a>
+          </div>
+        </div>
+        <div class="cardbodyItem">
+          <h4>Stories</h4>
+          <div *ngFor="let stories of currentCharacter.stories.items">
+            <h5>{{stories.name}}</h5>
+            <a href="{{stories.resourceURI}}"> getLink</a>
+          </div>
+        </div>
+        <div class="cardbodyItem">
+          <h4>Comics</h4>
+          <div *ngFor="let comics of currentCharacter.comics.items">
+            <h5>{{comics.name}}</h5>
+            <a href="{{comics.resourceURI}}"> getLink</a>
+          </div>
+        </div>
+      </div>
+
     </div>
 </div>

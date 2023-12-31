@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AuthGuard } from '../guards/auth.guard';
 import { DetailsComponent } from './dashboard/details/details.component';
+import { ProfileComponent } from './dashboard/profile/profile.component';
 
 export const routes: Routes = [
 
@@ -16,6 +17,11 @@ export const routes: Routes = [
         children: [
     
           { path: '', component: DashboardComponent },
+
+          {
+            path: 'profile',
+            component: ProfileComponent
+          },
 
           { 
             path: 'details/:id', 
