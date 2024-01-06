@@ -17,23 +17,28 @@
 </div>
 <!-- Hero End -->
 <div class="container mainBlock d-flex">
+    <div *ngIf="data$ | async as data">
+      {{data}}
+
+    </div>
+  
     <div 
         class="col mainBlock__item mb-3"
-        *ngFor="let character of allCharacters"
+        *ngFor="let character of allCharacters | keyvalue"
         >
         <div class="card mainBlock2 flex-nowrap">
             
                 <div class="card" style="width: 18rem;">
-                    <img 
-                      src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}" 
+                    <!--<img 
+                      src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}"-->
                       class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h3 class="card-title">{{character.name}}</h3>
+                      <h3 class="card-title">{{character.value}}</h3>
                       <p class="card-text">
-                        {{ character.description }}
+                        {{ character.value }}
                       </p>
                       <a class="btn btn-primary" 
-                        [routerLink]="['details/',character.id]"
+                        [routerLink]="['details/',character.value]"
                         >Stories</a>
                     </div>
                   </div>

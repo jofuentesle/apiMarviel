@@ -18,24 +18,19 @@ export class DetailsComponent implements OnInit {
 
   constructor(  private loadSrv: LoadService,
                 private _route: ActivatedRoute ){
-
-                  
                 }
 
-                @Input () value: string;
   currentId:any;
   currentCharacter: any = [];
   showData2: Observable<any>;
   showData: Observable<any>;
 
-  testError = false;
 
   async getChatarter () {
     
   await this.loadSrv.loadCharacter(this.currentId)
     .subscribe((res:Characters) => {
       if(res) {
-  
         this.currentCharacter = res.data.results[0];
         console.log(this.currentCharacter);
   
@@ -47,8 +42,6 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     //Cargamos id
     this.currentId =  this._route.snapshot.paramMap.get('id');
-
-    this.testError = true;
     //Cargamos HeroebyId
     this.getChatarter();
   } 
