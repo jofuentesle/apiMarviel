@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 
 import { LoginForm } from '../interficies/login-form.interface';
 import { Usuario } from 'src/app/models/usuario.model';
-import { of } from 'rxjs';
+import { of, Subject, BehaviorSubject, Observable } from 'rxjs';
 
 //Declaramos url
 const base_url = environment.BASE_URL; 
@@ -22,6 +22,7 @@ export class AuthService {
 
   //definimos usuario
   public usuarioDB!: Usuario;
+  
   
   constructor(
                 private http: HttpClient,
@@ -92,4 +93,5 @@ export class AuthService {
       })
 
     }
+
   }

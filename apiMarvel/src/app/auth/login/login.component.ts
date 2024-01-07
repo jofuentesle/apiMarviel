@@ -24,6 +24,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('googleBtn') googleBtn: ElementRef;
   loginForm:FormGroup
   isLoogin = false;
+
+  
   
   constructor(  private authService:AuthService, 
                 private router: Router ) 
@@ -94,4 +96,5 @@ export class LoginComponent implements OnInit, AfterViewInit {
       } 
     });
   }
+
 }
