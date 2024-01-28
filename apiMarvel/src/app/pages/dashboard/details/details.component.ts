@@ -22,22 +22,16 @@ export class DetailsComponent implements OnInit {
 
   currentId:any;
   currentCharacter: any = [];
-  showData2: Observable<any>;
-  showData: Observable<any>;
 
 
-  async getChatarter () {
-    
-  await this.loadSrv.loadCharacter(this.currentId)
-    .subscribe((res:Characters) => {
-      if(res) {
-        this.currentCharacter = res.data.results[0];
-        console.log(this.currentCharacter);
+  getChatarter () {
+    this.loadSrv.loadCharacter(this.currentId).subscribe((res => {
+
+        this.currentCharacter = res.data.results;
+        console.log('details', res);
   
-      }
-    })
+    }))
   }
-
   
   ngOnInit(): void {
     //Cargamos id

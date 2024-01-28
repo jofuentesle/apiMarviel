@@ -16,24 +16,26 @@
   </div>
 </div>
 <!-- Hero End -->
-<div class="container mainBlock d-flex">
+<div class="container mainBlock">
     <div 
-        class="col mainBlock__item mb-3"
+        class="col mb-3"
         *ngFor="let character of allCharacters"
         >
-        <div class="card mainBlock2 flex-nowrap">
+        
+        <div class="card">
           <div class="card" style="width: 18rem;">
+            <h3>{{character.title}}</h3>
               <img 
                 src="{{character.thumbnail.path}}.{{character.thumbnail.extension}}"
                 class="card-img-top" alt="...">
               <div class="card-body">
-                <h3 class="card-title">{{character.name}}</h3>
+                <h4>Description:</h4>
                 <p class="card-text">
-                  {{ character.description }}
+                  {{character.description}}
                 </p>
                 <a class="btn btn-primary" 
-                  [routerLink]="['details/',character.stories]"
-                  >Stories</a>
+                  [routerLink]="['details/',character.id]"
+                  >Details</a>
               </div>
             </div>
         </div>

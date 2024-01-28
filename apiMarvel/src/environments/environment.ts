@@ -4,11 +4,13 @@ export const environment = {
 
     BASE_URL: 'http://localhost:3000/',
  
-    API_URL: 'http://gateway.marvel.com/v1/public/comics?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a',
+    API_URL: 'http://gateway.marvel.com/v1/public/charters?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a',
+    API_KEY: 'https://gateway.marvel.com:443/v1/public/characters/1011334?apikey=',
     
     API_REST: '?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a',
+    
 
-    API_CHARACTER: 'http://gateway.marvel.com/v1/public/characters/'
+    API_CHARACTER: 'https://gateway.marvel.com:443/v1/public/characters/'
     //TS_KEY: 1,
     //Es la public key
     //API_KEY: '4f9a355e818b2149ba13bcbecd2cc118',
@@ -28,3 +30,6 @@ export const environment = {
 
 
 //http://gateway.marvel.com/v1/public/characters/1011334?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a/storiesFetches lists of stories filtered by a character id.
+//characterId:https://gateway.marvel.com:443/v1/public/characters/1011334?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a'
+
+//https://gateway.marvel.com:443/v1/public/characters/82965?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a

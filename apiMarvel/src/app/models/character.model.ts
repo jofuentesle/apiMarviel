@@ -2,7 +2,7 @@ export class Characters {
     constructor(
 
         public id: number,
-        public name: string,
+        public title: string,
         public description: string,
         public modified: Date,
         public resourceURI: string,
