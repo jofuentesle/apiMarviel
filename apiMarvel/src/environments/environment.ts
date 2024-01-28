@@ -10,6 +10,7 @@ export const environment = {
     API_REST: '?ts=1&apikey=4f9a355e818b2149ba13bcbecd2cc118&hash=359cb361c0a0717009b9228c9656015a',
     
 
+    API_COMICS: 'https://gateway.marvel.com:443/v1/public/comics/',
     API_CHARACTER: 'https://gateway.marvel.com:443/v1/public/characters/'
     //TS_KEY: 1,
     //Es la public key
